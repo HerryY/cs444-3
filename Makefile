@@ -21,7 +21,7 @@ clean-c:
 	
 	rm -f *.o
 	rm -f *.out
-	
+	rm con1
 
 
 dvi: ${tex}.tex
