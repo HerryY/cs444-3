@@ -22,6 +22,7 @@
 \geometry{textheight=10in, textwidth=7.5in}
 
 \usepackage{listings}
+\usepackage{multirow, booktabs, array}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -89,6 +90,7 @@
 
 \usepackage{sectsty}
 
+
 \sectionfont{\fontsize{12}{15}\selectfont}
 
 
@@ -118,7 +120,7 @@ git push origin master
 \begin{lstlisting}
 git clone git://git.yoctoproject.org/linux-yocto-3.14
 source /scratch/opt/environment-setup-i586-poky-linux.csh
-qemu-system-i386 -gdb tcp::5591 -S -nographic -kernel bzImage-qemux86.bin -drive file=core-image-lsb-sdk-qemux86.ext3,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug".
+qemu-system-i386 -gdb tcp::5591 -S -nographic -kernel bzImage-qemux86.bin -drive file=core-image-lsb-sdk-qemux86.ext3,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"
 gdb
 target remote :5591
 cp /scratch/spring2015/files/config-3.14.26-yocto-qemu /scratch/fall2015/cs444-91/linux-yocto-3.14/.config
@@ -129,9 +131,15 @@ make -j4 all
 
 \begin{enumerate}
 
+\item For the solution of the concurrency programming exercise, the primary task is to avoid producer threads and consumer threads access producer or consumer at the same time.
+The reason is the producer and consumer should be separately since they have different functions. To avoid all threads randomly access one threads handler, I will user mutex lock
+to manange threads. The producer function should handle the situation that when buffer is full which mean the consumer function may not working since there does not have a function
+take items from the buffer as consumer should do. Also the consumer cuntion should aware if the buffer is empty which mean there is no producer push items to the buffer.
 
+\item For generate random values and random waiting period. I should use assembly language with Mersenne Twister, but still have no idea how to figure those out. The best solution for me is
+to use C programming language to implement a random generator to test if producer and consumer can work well. The random generator should generate wait time for consumer, producer and random numbers.
+So there should have three conditions to generate each needs. 
 
-\item 
 \end{enumerate}
 
 \section{Questions}
@@ -161,16 +169,78 @@ to know how to use assembly language to approach the bottom level programming.
 \end{enumerate} 
 
 
+\section{Work Log}
+\begin{enumerate}
 
+\item Thursday,10/08/15. Start with build kernel and run QEMU VM on os-class, was not successful. First problem is this assignment requires me to download 3.14.26 version of
+kernel but once I switched the version tag that will shows me the repository not exist. The second problem is I do not know I need an assigned number since I am registered this class on end of Week 1.
+I randomly going through cs444-xx folder but I do not have permission. I created one folder for myself but that is not working because since the last two digits number I used are not assigned.
+
+\item Friday, 10/09/15. Still working on build kernel and run QEMU, I am trying to ask for assigned number but not get it yet. Instead of working on it, I start build my Git to fill the requirement of this
+assignment. But there has a problem is the ssh issues with os-class and Github.  
+
+\item Satuday, 10/10/15. Still working on Git ssh issues and start concurrency programming design.
+
+\item Sunday, 10/11/15. I figured out the ssh issues, I used ssh-agent to generated a new ssh keys between os-class and Github. Tested repository functions and everything working well. For build my kernel and 
+run QEMU, I have my two digits assigned number and used them for my tcp port number. But every time I tried to run QEMU the Putty always seems like crashed. Otherwise, concurrency design finished. 
+
+\item Monday, 10/12/15. Figured out the QEMU problem, I missed one condition in the requirement document, I should use gdb to connect the remote target. I connected the remote target but that is still not working,
+but when I quit the gdb that QEMU start running. Also I finished build my kernel, the write-up but I cannot finish the concurrency programming part.
+
+\end{enumerate}
 
 \section{Verison Control Log}
 
+\begin{table}[!hbp]
+\begin{tabular}{|c|}
 
-\section{Word Log}
+\hline
+commit 2c9c8b4da1c3b78abbcacb4a488269891f588b03\\
+Author: lijian  $<lijian@os-class.engr.oregonstate.edu>$ \\
+Date: Mon Oct 12 20:47:58 2015 -0700\\
+fix clean function on Makefile\\
+\hline
+commit 03e33511490d3d2dc9930e38433263a06db34243\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Mon Oct 12 20:46:11 2015 -0700\\
+ Makefile update\\
+\hline
+commit 8027e37945f1dbae1e8ee756f528a200f7c77c77\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Mon Oct 12 20:44:05 2015 -0700\\
+con1 update\\
+\hline
+commit 906f16f2758443353fe54b9c440873f2fb2bff50\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Mon Oct 12 20:42:49 2015 -0700\\
+latex update\\
+\hline
+commit 1512198dfdb4289bfd141c2d9b00461ecf39ca40\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Sun Oct 11 21:53:22 2015 -0700\\
+writeup\\
+\hline
+commit 8d7766420ea280a859dec8f58f369493f58cb17d\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Sun Oct 11 20:58:22 2015 -0700\\
+copy con1 to git\\
+\hline
+commit 36377add16aecccd333242c33c16d19e0f1a764d\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Sun Oct 11 19:33:30 2015 -0700\\
+test2\\
+\hline
+commit 49722aeb2ecca397174e429bea229652706343fc\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Sun Oct 11 19:26:47 2015 -0700\\
+test\\
+\hline
+ 
+ 
+\end{tabular}
+\end{table}
 
 
-
-\section{Questions}
 
 
 
