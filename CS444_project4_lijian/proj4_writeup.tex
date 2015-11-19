@@ -1,0 +1,189 @@
+\documentclass[letterpaper,11pt,titlepage]{article}
+
+\usepackage{graphicx}                                        
+
+\usepackage{amssymb}                                         
+\usepackage{amsmath}                                         
+\usepackage{amsthm}                                          
+
+\usepackage{alltt}                                           
+\usepackage{float}
+\usepackage{color}
+
+\usepackage{url}
+
+\usepackage{balance}
+\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+
+\usepackage{pstricks, pst-node}
+
+\usepackage{geometry}
+\geometry{textheight=10in, textwidth=7.5in}
+
+\usepackage{listings}
+\usepackage{multirow, booktabs, array}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  basicstyle=\ttfamily,            % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=10pt,                  % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=8,                       % sets default tabsize to 8 spaces
+  %title=\lstname                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\lstdefinestyle{niceC}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=0.2in,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+%random comment
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\usepackage{hyperref}
+
+\def\name{Jianzhi Li}
+
+%% The following metadata will show up in the PDF properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  pdfauthor = {\name},
+  pdfkeywords = {cs444 ``operating systems II'' Project 3},
+  pdftitle = {CS 444 Project 3: Write-up},
+  pdfsubject = {CS 444 Project 3},
+  pdfpagemode = UseNone
+}
+
+\parindent = 0.0 in
+\parskip = 0.2 in
+
+\usepackage{sectsty}
+
+
+\sectionfont{\fontsize{12}{15}\selectfont}
+
+
+\begin{document}
+
+
+Jianzhi Li\newline
+CS444 Project 3 Write-up
+
+\section{Design Plan For Ram Disk with Crypto API}
+
+Since the crypto API is only for encryption when writing data in ram disk and decrypt when read data from ram disk.
+So I need separate my work for two parts. The first part I need have a ram disk driver. For that part, there has some hint
+in the assignment requirement that is in LDD3 which is 'Linux Device Drivers, Third Edition' that has a simple that has the
+same function as a block device driver. I would use that simple from a source file called 'sbd.c' and just use crypto API to make that device driver can have 
+encrypts and decrypts data  when that write and read data. The data before encrypts and after encrypts that is would be different, also
+the data before decrypts and after decrypts when the disk wants to read. After some research, the crypto API is contains many kinds of crypto
+algorithms, but for the ram disk that is not keep data for a long time, data just temporary be stored in the ram disk. So I just need do encrypts and 
+decrypts when the ram risk written or read data that is not necessary to use complicated algorithm but just filter data. All I need to do is to modified 'sbd transfer'  function which is to write and read data. 
+    
+
+
+
+
+\section{Work Log}
+\begin{enumerate}
+
+\item Monday, 11/02/15. Created project3 on git and start research ram disk. Reread Chapter 17.
+
+\item Tuesday, 11/03/15. Start looking at LDD3 and trying to find a simple block driver.
+\item Thursday, 11/05/15. Copied 'sbd.c' as my block device driver. Start going through each function.
+
+\item Friday, 11/06/15. Located the function 'sbd transfer', that is the function I need add crypto API since there is the encrypts and decrypts function will operate the data. 
+\item Sunday, 11/08/15. Some syntax problem with crypto API. There is too many of them in the introduction of crypto API. Most of them are struct. For doing that, I may just need take out encrypts and decrypts function from struct and put them in 'sbd transfer' function.
+
+\item Monday, 11/09/15. Finished the crypto API, I have print function under each step of encryption and decryption which mean before and after. I tried to rebuild the kernel and fixed some bugs then that is working well. But I have a concern that is I do not know why the Makefile cannot give me the kernel object file. That is a problem to change to mount the ram disk driver. 
+I tried to use 'insmod' to install the module but there was an error that is my object file have no permission to do that. 
+
+\end{enumerate}
+
+
+\section{Questions}
+\begin{enumerate}
+
+\item I think the main point for this assignment to let me learn how to use module in the linux kernel. Since if I want to be a kernel programmer, I have to learn module programming since that is an important part of the kernel. That is also a way how kernel programmer to improve kernel and add more functions and features in the kernel.
+Also module as my understanding that is support hot plug which mean I can modify a module when the VM is running. I think that is also how the USB working in the operating system.
+
+\item Be honest, the 'sbd.c' gives most of what I need in this assignment, all I need is to do is to figure out how to use crypto API. I can rebuild my kernel that is mean I do not have bugs in my code but that is not mean I do not have problem with the function of the code.
+
+\item As I metioned in my work log. I do want to test my code that add that to be a module. But once I want to install my module that I would receive 'operation not permitted'. I would fix that as fast I can.
+
+\item In this assignment, I learn how to use crypto API and concept of module and block devices as what Chapter 17 in our textbook that addressed. For install a module to a running VM and change the file system those are also important technique to learn. As I am not successful to test my correctness before the due date. I would figure that out before the demo. 
+
+\end{enumerate} 
+
+
+\section{Verison Control Log}
+
+\begin{table}[!hbp]
+\begin{tabular}{|c|}
+
+\hline
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Mon Nov 9 23:58:14 2015 -0800\\
+
+    upload proj3\\
+
+\hline
+commit fb925285c888639726684e74511f71eab345313f\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Mon Nov 9 13:26:03 2015 -0800\\
+
+    untest version of ramdisk\\
+
+\hline
+commit 963de9778620f69ce85f4ca95a3772f6efaad489\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Mon Nov 2 18:09:20 2015 -0800\\
+
+    project3 created\\
+
+\hline
+
+
+ 
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+
+
+\end{document}
