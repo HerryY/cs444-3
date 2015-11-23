@@ -100,9 +100,11 @@
 Jianzhi Li\newline
 CS444 Project 4 Write-up
 
-\section{Design Plan For Slob}
+\section{Design Plan For SLOB Best-Fit Algorithm}
 
-
+Before to design the best-fit algorithem. I was reviewed the knowledge of memory management and study each function of the original slob.c in the kernel. Also I did 
+some research by read a few documents created by others that compared the difference between the first-fit algorithm and the best-fit algorithem. As the result, I should have a 
+function that is can compare the size of memory block and find out a memory block that has the best-fit size. 
     
 
 
@@ -111,8 +113,16 @@ CS444 Project 4 Write-up
 \section{Work Log}
 \begin{enumerate}
 
-\item 
+\item Tuesday, 11/17/15. Start research on this project. I looked at a few documents on the internet, those documents are compared the first-fit algorithem and the best fit algorithm. Also reviewed the chapter 12 for memory management.
 
+\item Wednesday, 11/18/15. Created the project folder on the github. I have going through the original code of slob.c which is used first-fit algorithm to allocate pages. 
+\item Thursday, 11/05/15. Copied 'sbd.c' as my block device driver. Start going through each function.
+
+\item Friday, 11/06/15. Located the function 'sbd transfer', that is the function I need add crypto API since there is the encrypts and decrypts function will operate the data. 
+\item Sunday, 11/08/15. Some syntax problem with crypto API. There is too many of them in the introduction of crypto API. Most of them are struct. For doing that, I may just need take out encrypts and decrypts function from struct and put them in 'sbd transfer' function.
+
+\item Monday, 11/09/15. Finished the crypto API, I have print function under each step of encryption and decryption which mean before and after. I tried to rebuild the kernel and fixed some bugs then that is working well. But I have a concern that is I do not know why the Makefile cannot give me the kernel object file. That is a problem to change to mount the ram disk driver. 
+I tried to use 'insmod' to install the module but there was an error that is my object file have no permission to do that. 
 
 \end{enumerate}
 
@@ -120,7 +130,14 @@ CS444 Project 4 Write-up
 \section{Questions}
 \begin{enumerate}
 
-\item 
+\item I think the main point for this assignment to let me learn how to use module in the linux kernel. Since if I want to be a kernel programmer, I have to learn module programming since that is an important part of the kernel. That is also a way how kernel programmer to improve kernel and add more functions and features in the kernel.
+Also module as my understanding that is support hot plug which mean I can modify a module when the VM is running. I think that is also how the USB working in the operating system.
+
+\item Be honest, the 'sbd.c' gives most of what I need in this assignment, all I need is to do is to figure out how to use crypto API. I can rebuild my kernel that is mean I do not have bugs in my code but that is not mean I do not have problem with the function of the code.
+
+\item As I metioned in my work log. I do want to test my code that add that to be a module. But once I want to install my module that I would receive 'operation not permitted'. I would fix that as fast I can.
+
+\item In this assignment, I learn how to use crypto API and concept of module and block devices as what Chapter 17 in our textbook that addressed. For install a module to a running VM and change the file system those are also important technique to learn. As I am not successful to test my correctness before the due date. I would figure that out before the demo. 
 
 \end{enumerate} 
 
@@ -131,13 +148,24 @@ CS444 Project 4 Write-up
 \begin{tabular}{|c|}
 
 \hline
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Mon Nov 9 23:58:14 2015 -0800\\
 
+    upload proj3\\
 
 \hline
-\
+commit fb925285c888639726684e74511f71eab345313f\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Mon Nov 9 13:26:03 2015 -0800\\
+
+    untest version of ramdisk\\
 
 \hline
+commit 963de9778620f69ce85f4ca95a3772f6efaad489\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Mon Nov 2 18:09:20 2015 -0800\\
 
+    project3 created\\
 
 \hline
 
