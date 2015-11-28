@@ -116,8 +116,7 @@ for this project. This function was implemented by first-fit algorithm that is w
 of memory blocks then sort the whole list. 
     
 For compare the fragmentation suffered by first-fit algorithm and best-fit algorithm. As a hint to finish this requirement, I need add additional system calls to compare those two different algorithms. For doing that,
-after I did some research that I need add my new system calls in syscall_table.S that is under the kernel directory and allowed me to add new system call entry, and the unistd.h that is under the asm directory and that is allowed me to add the system call numbers
-, also the syscalls.h that is under the linux directory and that is allowed me to do the macro definition for my system call.  
+after I did some research that I need add my new system calls in syscall_64.tbl that is under the kernel directory and allowed me to add new system call lists, and the unistd.h that is under the asm directory and that is allowed me to add the system call numbers.
 
 
 
@@ -134,6 +133,8 @@ after I did some research that I need add my new system calls in syscall_table.S
 \item Sunday, 11/21/15. The slob_alloc and slob_page_alloc can complied by rebuilding the kernel. Enabled the SLOB in General Setup in kernel ny seleted the SLOB to be the allocator. 
 
 \item Monday, 11/22/15. Working on testing method to make sure my implementation to match the requirement. Modified 
+
+\item Friday, 11/27/15. Test system call, and rebuild kernel by using best_fit slob. The test outcome is not as expect but the whole process is finished.
 
 \end{enumerate}
 
@@ -161,26 +162,61 @@ To find out how to add system calls that used me a long time since some document
 \begin{tabular}{|c|}
 
 \hline
+commit 81b91d70e780cb271a5840a459f0486c99735ab3\\
 Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
-Date:   Mon Nov 9 23:58:14 2015 -0800\\
+Date:   Mon Nov 23 22:25:20 2015 -0800\\
 
-    upload proj3\\
-
+    writeup finised except the version log\\
 \hline
-commit fb925285c888639726684e74511f71eab345313f\\
+commit 408311531f86b66bc115b5da58254c5037a19175\\
 Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
-Date:   Mon Nov 9 13:26:03 2015 -0800\\
+Date:   Sun Nov 22 23:49:42 2015 -0800\\
 
-    untest version of ramdisk\\
-
+    update writeup and Makefile\\
 \hline
-commit 963de9778620f69ce85f4ca95a3772f6efaad489\\
+commit af7e1de1cbc6df50eac63566c7a980247e49e0d0\\
+Author:lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Sat Nov 21 22:39:09 2015 -0800\\
+
+    final project create\\
+\hline
+commit 7cf71f6e071001a06636c513729fd49ab5b26592\\
 Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
-Date:   Mon Nov 2 18:09:20 2015 -0800\\
+Date:   Fri Nov 20 00:10:48 2015 -0800\\
 
-    project3 created\\
+    update project 4 writeup\\
+\hline	
+commit b1d0c2fbcd0febe3dab9a037315c827cc7b08ff5\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Fri Nov 20 00:06:27 2015 -0800\\
 
+    problem1 has core dump and cannot fix it on time\\
 \hline
+commit 24a7b6cc488b5e950ff90097b358a4c2bde5c842\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Thu Nov 19 22:51:25 2015 -0800\\
+
+    Barber is finished\\
+\hline
+commit e71aa1c23c938069f4439ff1d9c3916c4ac8c2d0\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Thu Nov 19 20:10:16 2015 -0800\\
+
+    unfinied barber\\
+\hline
+commit 40fb05806f2bdfcfdc60fdbf73bf8dd67e4ab058\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Wed Nov 18 20:56:14 2015 -0800\\
+
+    Project 4 created\\
+\hline
+commit 7958f6fb697f0ae9c1d427c8626df63fb42bc4b0\\
+Author: lijian $<lijian@os-class.engr.oregonstate.edu>$\\
+Date:   Tue Nov 17 00:00:31 2015 -0800\\
+
+    con4 files update\\
+\hline
+
 
 
  
